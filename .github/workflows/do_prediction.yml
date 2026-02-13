@@ -1,19 +1,24 @@
 on:
   workflow_dispatch:
   schedule:
-  - cron: "0 20 * * *"
+    - cron: "0 20 * * *"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
       image: eco4cast/rocker-neon4cast
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
-# Point to the right path, run the right Rscript command
+
+      - name: Install archived rMR
+        run: |
+          Rscript -e 'install.packages("https://cran.r-project.org/src/contrib/Archive/rMR/rMR_1.1.0.tar.gz", repos=NULL, type="source")'
+
       - name: Run automatic prediction file
-        run: Rscript Main.R 
+        run: Rscript Main.R
+
