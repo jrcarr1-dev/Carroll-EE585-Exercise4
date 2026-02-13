@@ -3,7 +3,7 @@ library(tidyverse)
 library(neon4cast)
 library(lubridate)
 
-forecast_date <- Sys.Date()
+forecast_date <- as.Date(Sys.time(), tz="UTC") - 1
 noaa_date <- Sys.Date() - days(1)  #Need to use yesterday's NOAA forecast because today's is not available yet
 
 #Step 0: Define team name and team members 
